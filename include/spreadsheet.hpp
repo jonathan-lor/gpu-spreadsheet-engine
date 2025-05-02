@@ -11,12 +11,14 @@ struct Cell {
 
 class SpreadsheetGrid {
 private:
-	std::vector<std::vector<Cell>> grid;
+	// std::vector<std::vector<Cell>> grid;
+	std::vector<Cell> grid;
 	size_t rows, cols;
 
 public:
 
 	SpreadsheetGrid(size_t r, size_t c);
+	~SpreadsheetGrid();	
 
 	void setValue(size_t row, size_t col, double val);
 	double getValue(size_t row, size_t col) const;
@@ -29,8 +31,28 @@ public:
 	size_t colCount() const { return cols; }
 
 	// operations - cuda and CPU
+
+	// scale
 	void applyScaleCUDA(double scale);
 	void applyScaleCPU(double scale);
+
+	// row sum
+	std::vector<double> rowSumCPU() const;
+	std::vector<double> rowSumGPU() const;
+
+	// col sum
+	std::vector<double> colSumCPU() const;
+	std::vector<double> colSumGPU() const;
+
+	// mean rows
+
+
+	// mean cols
+
+
+	// normalize
+	void normalizeRowsGPU();
+	void normalizeRowsCPU();
 };
 
 #endif
